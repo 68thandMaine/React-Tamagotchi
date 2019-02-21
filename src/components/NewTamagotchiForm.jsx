@@ -1,11 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { v4 } from 'uuid';
 
-  export default function NewTamagotchiForm() {
+  export default function NewTamagotchiForm(props) {
   let _name = null;
 
   function handleNewTamagotchiFormSubmission(event) {
     event.preventDefault();
-    console.log(_name.value);
+    props.onHandleNewTamagotchiToList({name: _name.value, hunger: 10, id: v4() })
     _name.value = '';
   }
 
@@ -17,8 +19,13 @@ import React from 'react';
           id='name'
           ref={(input) => {_name = input;}}
           />
+        <br/>
         <button type='submit'>New Game</button>
       </form>
     </div>
   );
+}
+
+NewTamagotchiForm.propTypes = {
+  onHandleNewTamagotchiToList: PropTypes.func.isRequired
 }
